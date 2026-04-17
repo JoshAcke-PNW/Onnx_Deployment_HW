@@ -14,7 +14,14 @@ async function runInference() {
             parseFloat(document.getElementById('origin').value)
         ];
 
-        const session = await ort.InferenceSession.create('./model.onnx');
+        const session = await ort.InferenceSession.create('./model.onnx', {
+            externalData: [
+                {
+                    data: './model.onnx.bin',
+                    path: 'model.onnx.data'   
+                }
+            ]
+        });
         const inputTensor = new ort.Tensor('float32', Float32Array.from(inputs), [1, 7]);
         const feeds = { input: inputTensor };
         const results = await session.run(feeds);
