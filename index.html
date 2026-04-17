@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto MPG Predictor</title>
+    <!-- ONNX Runtime Web -->
+    <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web/dist/ort.min.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f7f9;
+            color: #2d3436;
+            line-height: 1.6;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 450px;
+            width: 90%;
+        }
+        h1 { 
+            font-size: 1.4rem; 
+            margin-bottom: 0.5rem; 
+            color: #2d3436; 
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        p.subtitle {
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-bottom: 2rem;
+        }
+        .input-group { 
+            margin-bottom: 1.25rem; 
+        }
+        label { 
+            display: block; 
+            font-size: 0.8rem; 
+            font-weight: 600; 
+            margin-bottom: 0.4rem; 
+            color: #2d3436;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #dfe6e9;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            background-color: #fafbfc;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #0984e3;
+            background-color: #fff;
+        }
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #2d3436;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: opacity 0.2s;
+        }
+        button:hover { 
+            opacity: 0.9;
+        }
+        #result {
+            margin-top: 2rem;
+            padding: 1.25rem;
+            border-radius: 6px;
+            background: #f1f2f6;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: none;
+            color: #2d3436;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Car Efficiency Predictor</h1>
+        <p class="subtitle">Enter vehicle specifications to estimate MPG.</p>
+        
+        <div class="input-group">
+            <label>Cylinders</label>
+            <input type="number" id="cylinders" value="4">
+        </div>
+        <div class="input-group">
+            <label>Displacement (cu. in.)</label>
+            <input type="number" id="displacement" value="150">
+        </div>
+        <div class="input-group">
+            <label>Horsepower</label>
+            <input type="number" id="horsepower" value="100">
+        </div>
+        <div class="input-group">
+            <label>Weight (lbs)</label>
+            <input type="number" id="weight" value="2800">
+        </div>
+        <div class="input-group">
+            <label>Acceleration (0-60 mph)</label>
+            <input type="number" id="acceleration" value="15">
+        </div>
+        <div class="input-group">
+            <label>Model Year (YY)</label>
+            <input type="number" id="year" value="80">
+        </div>
+        <div class="input-group">
+            <label>Origin (1: US, 2: EU, 3: JP)</label>
+            <input type="number" id="origin" value="1">
+        </div>
+
+        <button onclick="runInference()">Predict MPG</button>
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
